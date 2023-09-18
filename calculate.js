@@ -3,12 +3,12 @@ const BigNumber = require('bignumber.js');
 
 // 创建两个大数字
 
-const num1 = new BigNumber('1234567890123456789012345678901234567890');
-const num2 = new BigNumber('9876543210987654321098765432109876543210');
-const res1 = 1/16.160219174148033000
-const num3 = new BigNumber(res1);
-const res2 = 1/2620797370278
-const num4 = new BigNumber(res2);
+// const num1 = new BigNumber('1234567890123456789012345678901234567890');
+// const num2 = new BigNumber('9876543210987654321098765432109876543210');
+// const res1 = 1/16.160219174148033000
+// const num3 = new BigNumber(res1);
+// const res2 = 1/2620797370278
+// const num4 = new BigNumber(res2);
 // 进行加法、减法、乘法和除法操作
 // const sum = num1.plus(num2);
 // const difference = num1.minus(num2);
@@ -19,11 +19,25 @@ const num4 = new BigNumber(res2);
 // console.log('num3:', num3.toString());
 // console.log('num4:', num4.toString());
 
+function getSum(paramsA, paramsB) {
+    const num1 = new BigNumber(paramsA);
+    const num2 = new BigNumber(paramsB);
+    const sum = num1.plus(num2)
+    getRes("总和",sum)
+}
+
+function getDiffer(paramsA, paramsB) {
+    const num1 = new BigNumber(paramsA);
+    const num2 = new BigNumber(paramsB);
+    const dif = num1.minus(num2)
+    getRes("相差",dif)
+}
+
+
 function getRange(param) {
     var res1 = param * 0.995
     var res2 = param * 0.99
-    getRes(res1)
-    getRes(res2)
+    console.log("range:", res2,"--", res1);
 }
 
 function getRes(tip,params) {
@@ -33,6 +47,14 @@ function getRes(tip,params) {
     console.log(tip, decimalValue);
 }
 
+
+function getTimes(paramsA, paramsB) {
+    const num1 = new BigNumber(paramsA);
+    const num2 = new BigNumber(paramsB);
+    const times = num1.times(num2)
+    getRes("相乘",times)
+    return times
+}
 
 
 const receive = 162.940000
@@ -46,10 +68,16 @@ const floatRate = determinedReceive / commoinReceive
 
 getRange(commoinReceive)
 getRes("浮动情况下收取的费用比例",1-floatRate)
+// getDiffer(0.000265989227994, 0.000021000000189)
+// getSum(0.000021000000147,0.000034575000242025)
+// getTimes(3, 201)
 
-const redeuce = 0.000265989227994 - 0.000021000000189
-getRes("剩余资金",redeuce)
+function getFixedRes(paramsA, paramsB) {
+  var times =  getTimes(paramsA, 0.99)
+  getDiffer(times.toString(),paramsB)
+}
 
+getFixedRes(100, 9)
 // 使用 BigNumber 构造函数创建一个 BigNumber 对象
 
 
